@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, StyleSheet, TextInput } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView } from 'react-native';
 import * as Location from 'expo-location';
+import ChatBot from 'react-native-chatbot-expo';
+
+const steps = [
+  {
+    id: '0',
+    message: 'Hello, I\'m Aura!',
+    trigger: '1',
+  },
+  {
+    id: '1',
+    message: 'Bye!',
+    end: true,
+  },
+];
 
 import {geocode} from './utils/api'
 
@@ -40,17 +54,12 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.paragraph}>{text}</Text>
-      <TextInput 
-        style={styles.input}
-        autoCorrect={false}
-        placeholder="Your destination"
-        clearButtonMode="always"
-        onSubmitEditing={handleSubmit}
-      />
-      <Text style={styles.paragraph}>{locationCoord}</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View>
+        <ChatBot steps={steps} />
+        <Text style={styles.paragraph}>{locationCoord}</Text>
+      </View>
+    </SafeAreaView>
   );
 }
 
