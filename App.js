@@ -16,9 +16,12 @@ const steps = [
   },
 ];
 
+import {geocode} from './utils/api'
+
 export default function App() {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [locationCoord, setLocationCoord] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -31,6 +34,8 @@ export default function App() {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
     })();
+
+    handleSubmit('London')
   }, []);
 
   let text = 'Waiting..';
@@ -40,10 +45,19 @@ export default function App() {
     text = JSON.stringify(location);
   }
 
+  const handleSubmit = async (location) => {
+    const coord = await geocode(location)
+    let text = JSON.stringify(coord)
+    setLocationCoord(text)
+    
+
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
         <ChatBot steps={steps} />
+        <Text style={styles.paragraph}>{locationCoord}</Text>
       </View>
     </SafeAreaView>
   );
@@ -55,5 +69,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
   },
 });
