@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView } from 'react-native';
 import * as Location from 'expo-location';
+import ChatBot from 'react-native-chatbot-expo';
+
+const steps = [
+  {
+    id: '0',
+    message: 'Hello, I\'m Aura!',
+    trigger: '1',
+  },
+  {
+    id: '1',
+    message: 'Bye!',
+    end: true,
+  },
+];
 
 export default function App() {
   const [location, setLocation] = useState(null);
@@ -27,9 +41,11 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.paragraph}>{text}</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View>
+        <ChatBot steps={steps} />
+      </View>
+    </SafeAreaView>
   );
 }
 
