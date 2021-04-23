@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Text, View, StyleSheet, SafeAreaView } from 'react-native';
-import * as Location from 'expo-location';
 import { GiftedChat } from 'react-native-gifted-chat'
 
 import {geocode} from './utils/api'
@@ -12,26 +11,6 @@ export default function App() {
     const coord = await geocode(location)
     return JSON.stringify(coord)
   }
-
-    // useEffect(() => {
-  //   (async () => {
-  //     let { status } = await Location.requestForegroundPermissionsAsync();
-  //     if (status !== 'granted') {
-  //       setErrorMsg('Permission to access location was denied');
-  //       return;
-  //     }
-
-  //     let location = await Location.getCurrentPositionAsync({});
-  //     setLocation(location);
-  //   })();
-  // }, []);
-
-  // let text = 'Waiting..';
-  // if (errorMsg) {
-  //   text = errorMsg;
-  // } else if (location) {
-  //   text = JSON.stringify(location);
-  // }
 
   useEffect(() => {
     setMessages([
@@ -65,17 +44,3 @@ export default function App() {
     />
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-  },
-});
